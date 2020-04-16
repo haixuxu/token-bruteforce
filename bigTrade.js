@@ -5,21 +5,25 @@ const timeout = require('./lib/timeout');
 const readJson = require('./lib/readJson');
 const promiseReduce = require('./lib/promiseReduce');
 
-const savepath = path.join(__dirname, './data/tokenViewBig.json');
-const localObj = readJson(savepath, {});
-
 function getUrl(currentPage, pageSize) {
   return `https://eth.tokenview.com/api/tx/unusual/amount/${currentPage}/${pageSize}`;
 }
 
-const accounts = [];
 const oneHour = 1000 * 60 * 60;
 const from = Date.now() - oneHour * 24 * 7;
 const to = Date.now() + oneHour * 24;
-const query = { network: 'eth', from: from / 1000, to: to / 1000, amount: '100', currency: 'eth' };
 
-async function fetchtarget() {
+async function fetchtarget(type) {
   try {
+    let query = { network: 'eth', from: from / 1000, to: to / 1000, amount: '100', currency: 'eth' };
+    let savepath = path.join(__dirname, './data/tokenViewBigETH.json');
+    if (type === 'btc') {
+      savepath = path.join(__dirname, './data/tokenViewBigBTC.json');
+      query = { network: 'btc', from: from / 1000, to: to / 1000, amount: '100', currency: 'btc' };
+    }
+    const localObj = readJson(savepath, {});
+    const accounts = [];
+
     const resp = await axios.post(getUrl(1, 10), query);
     const bizData = resp.data;
     const total = bizData.data.total;
@@ -55,4 +59,4 @@ async function fetchtarget() {
   }
 }
 
-fetchtarget();
+fetchtarget('eth');
