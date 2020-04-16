@@ -1,0 +1,20 @@
+{
+  "name": "token-bruteforce",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitee.com:xuxihai123/token-bruteforce.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "keccakjs": "^0.2.3",
+    "secp256k1": "^4.0.0"
+  }
+}
