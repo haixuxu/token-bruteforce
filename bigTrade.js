@@ -22,7 +22,6 @@ async function fetchtarget(type) {
       query = { network: 'btc', from: from / 1000, to: to / 1000, amount: '100', currency: 'btc' };
     }
     const localObj = readJson(savepath, {});
-    const accounts = [];
 
     const resp = await axios.post(getUrl(1, 10), query);
     const bizData = resp.data;
@@ -30,7 +29,7 @@ async function fetchtarget(type) {
     const pageCount = Math.ceil(total / 100);
     console.log('total page :' + pageCount);
     const tasks = [...Array(pageCount).keys()].map((temp) => {
-      return async function () {
+      return async function() {
         console.log(`fetch page ${temp + 1} data...`);
         const resp2 = await axios.post(getUrl(temp + 1, 100), query);
         const bizData = resp2.data;
@@ -53,7 +52,7 @@ async function fetchtarget(type) {
 
     await promiseReduce(tasks);
     fs.writeFileSync(savepath, JSON.stringify(localObj, null, 2), 'utf8');
-    console.log(`write ${accounts.length} count data  to ${savepath}`);
+    console.log(`write ${Object.keys(localObj).length} count data  to ${savepath}`);
   } catch (err) {
     console.log(err.message);
   }
