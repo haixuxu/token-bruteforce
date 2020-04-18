@@ -1,6 +1,7 @@
 const util = require('util');
 const fs = require('fs');
 const path = require('path');
+const log = require('single-line-log').stdout;
 
 const createBtcWallet = require('./lib/createBtcWallet');
 const timeout = require('./lib/timeout');
@@ -10,7 +11,8 @@ const writefile = util.promisify(fs.writeFile);
 const savefile = path.resolve(__dirname, `./data/crazylocal_${Date.now()}.json`);
 const verifyDataPath = path.resolve(__dirname, './data/tokenViewBigBTC.json');
 const tokenViewBigObj = readJson(verifyDataPath);
-console.log(Object.keys(tokenViewBigObj).length);
+const len = Object.keys(tokenViewBigObj).length;
+console.log('\tbtc account length: ' + len);
 
 var accountList = [];
 
@@ -28,7 +30,7 @@ function crazyLocal() {
         let obj = createBtcWallet();
         let address = obj.address;
         let privateKey = obj.priv;
-        console.log(`test[${count}] privHex:${privateKey}  address:${address} current crazy key count: ${accountList.length}`);
+        log(`\tcurrent test count [${count}] \n\tprivHex:${privateKey}  \n\taddress:${address} \n\tcurrent crazy key count: ${accountList.length}`);
         if (tokenViewBigObj[address]) {
           accountList.push(privateKey);
           console.log(`current key is: ${privateKey}`);
