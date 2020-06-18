@@ -22,6 +22,8 @@ async function fetchtarget(type) {
       query = { network: 'btc', from: from / 1000, to: to / 1000, amount: '100', currency: 'btc' };
     }
     const localObj = readJson(savepath, {});
+    console.log('local data length: ' + Object.keys(localObj).length);
+    console.log(JSON.stringify(query, null, 2));
 
     const resp = await axios.post(getUrl(1, 10), query);
     const bizData = resp.data;
