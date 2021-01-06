@@ -13,7 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bs58": "^4.0.1",
     "keccakjs": "^0.2.3",
     "secp256k1": "^4.0.0",
